@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="$(find ros_mobile_robot)/urdf/mobile_robot.urdf.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find ros_mobile_robot)/urdf/urdf.rviz" />
+
+  <!-- Parameters -->
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- Load controller configurations -->
+  <rosparam command="load"
+            file="$(find ros_mobile_robot)/config/diffdrive.yaml"
+            ns="robot_diff_drive_controller" />
+  <rosparam command="load" file="$(find ros_mobile_robot)/config/gazebo_ros_control_params.yaml"/>
+  <rosparam command="load" file="$(find ros_mobile_robot)/config/joints.yaml" ns="mobile_robot_joint_state_controller"/>
+
+  <!-- Start the joint state publisher -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+    <rosparam param="source_list">[/mobile_robot/joint_states]</rosparam>
+  </node>
+
+  <!-- Start the robot state publisher -->
+  <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher" />
+  
+  <!-- Start RViz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+  <!-- Start the controller spawner -->
+  <node name="robot_controller_spawner" pkg="controller_manager" type="spawner" 
+        args="mobile_robot_joint_state_controller robot_diff_drive_controller" 
+        respawn="false" output="screen"/>
+
+  <!-- Launch Gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+  
+  <!-- Spawn the robot in Gazebo -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 0.1 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
+</launch>

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!-- http://wiki.ros.org/urdf/XML/link  -->
+<robot name="my_robot">
+     
+    <!-- This is the body of the robot -->    
+    <link name="body_link">
+        <visual>  
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="1 0.6 0.3" />
+            </geometry>
+             
+            <material name="green shade">
+		<color rgba="0.2 0.7 0.4 1"/>
+            </material>
+              
+        </visual>
+    </link>
+     
+     <link name="head_link">
+	<visual>
+            <!-- position of the robot head -->
+	  <origin rpy="0 0 0" xyz="0 0 0"/> 
+		<geometry>
+		    <box size="0.2 0.2 0.2" />
+	        </geometry>
+		<material name="black">
+		<color rgba="0 0 0 1"/>
+            </material>
+	</visual>
+     </link>
+
+	<!-- Fixed joint to attach the head to the body -->
+    <joint name="head_joint" type="fixed">
+        <parent link="body_link"/>
+        <child link="head_link"/>
+	<!-- Position the head box above the body -->
+        <origin xyz="0.1 0 0.3" rpy="0 0 0"/> 
+    </joint>
+     
+     
+    <!-- This is the back right wheel of the robot -->
+    <joint name="wheel1_joint" type="continuous" >
+        <parent link="body_link"/>
+        <child  link="wheel1_link" />
+        <origin xyz="-0.3 -0.35 -0.1" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>   
+    </joint>
+    <link name="wheel1_link">
+        <visual>
+            <origin rpy="1.570795 0 0" xyz="0 0 0"
+/>
+            <geometry>
+                <cylinder length="0.1" radius="0.15"/>
+            </geometry>
+             
+            <material name="yellow">
+                <color rgba="1 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+     
+     
+    <!-- This is the back left wheel of the robot -->
+    <joint name="wheel2_joint" type="continuous" >
+        <parent link="body_link"/>
+        <child  link="wheel2_link" />
+        <origin xyz="-0.3 0.35 -0.1" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>   
+    </joint>
+    <link name="wheel2_link">
+        <visual>
+            <origin rpy="1.570795 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1" radius="0.15"/>
+            </geometry>
+             
+            <material name="yellow">
+                <color rgba="1 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+     
+     
+     
+    <!-- This is the front right wheel of the robot -->
+    <joint name="wheel3_joint" type="continuous" >
+        <parent link="body_link"/>
+        <child  link="wheel3_link" />
+        <origin xyz="0.3 -0.35 -0.1" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>   
+    </joint>
+    <link name="wheel3_link">
+        <visual>
+            <origin rpy="1.570795 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1" radius="0.15"/>
+            </geometry>
+             
+            <material name="yellow">
+                <color rgba="1 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+     
+     
+     
+    <!-- This is the front left wheel of the robot -->
+    <joint name="wheel4_joint" type="continuous" >
+        <parent link="body_link"/>
+        <child  link="wheel4_link" />
+        <origin xyz="0.3 0.35 -0.1" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>   
+    </joint>
+    <link name="wheel4_link">
+        <visual>
+            <origin rpy="1.570795 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.1" radius="0.15"/>
+            </geometry>
+             
+            <material name="yellow">
+                <color rgba="1 1 0 1"/>
+            </material>
+        </visual>
+    </link>
+ 
+</robot>

@@ -1,0 +1,101 @@
+roslaunch ros_mobile_robot drive_robot.launch
+... logging to /home/ariano/.ros/log/671f42b0-85e7-11ef-b560-7085c25fbfb4/roslaunch-ariano-16443.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://ariano:43537/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /gazebo/enable_ros_network: True
+ * /gazebo_ros_control/pid_gains/front_left_wheel_joint/d: 0
+ * /gazebo_ros_control/pid_gains/front_left_wheel_joint/i: 0
+ * /gazebo_ros_control/pid_gains/front_left_wheel_joint/p: 1.0
+ * /gazebo_ros_control/pid_gains/front_right_wheel_joint/d: 0
+ * /gazebo_ros_control/pid_gains/front_right_wheel_joint/i: 0
+ * /gazebo_ros_control/pid_gains/front_right_wheel_joint/p: 1.0
+ * /gazebo_ros_control/pid_gains/rear_left_wheel_joint/d: 0
+ * /gazebo_ros_control/pid_gains/rear_left_wheel_joint/i: 0
+ * /gazebo_ros_control/pid_gains/rear_left_wheel_joint/p: 1.0
+ * /gazebo_ros_control/pid_gains/rear_right_wheel_joint/d: 0
+ * /gazebo_ros_control/pid_gains/rear_right_wheel_joint/i: 0
+ * /gazebo_ros_control/pid_gains/rear_right_wheel_joint/p: 1.0
+ * /joint_state_publisher/source_list: ['/mobile_robot/j...
+ * /joint_state_publisher/use_gui: False
+ * /mobile_robot_joint_state_controller/publish_rate: 50
+ * /mobile_robot_joint_state_controller/type: joint_state_contr...
+ * /robot_description: <?xml version="1....
+ * /robot_diff_drive_controller/angular/z/has_acceleration_limits: True
+ * /robot_diff_drive_controller/angular/z/has_velocity_limits: True
+ * /robot_diff_drive_controller/angular/z/max_acceleration: 2.0
+ * /robot_diff_drive_controller/angular/z/max_velocity: 8.0
+ * /robot_diff_drive_controller/base_frame_id: base_link
+ * /robot_diff_drive_controller/enable_odom_tf: True
+ * /robot_diff_drive_controller/left_wheel: ['front_left_whee...
+ * /robot_diff_drive_controller/linear/x/has_acceleration_limits: True
+ * /robot_diff_drive_controller/linear/x/has_velocity_limits: True
+ * /robot_diff_drive_controller/linear/x/max_acceleration: 1.0
+ * /robot_diff_drive_controller/linear/x/max_velocity: 2.0
+ * /robot_diff_drive_controller/pose_covariance_diagonal: [0.001, 0.001, 10...
+ * /robot_diff_drive_controller/publish_rate: 50
+ * /robot_diff_drive_controller/right_wheel: ['front_right_whe...
+ * /robot_diff_drive_controller/twist_covariance_diagonal: [0.001, 0.001, 10...
+ * /robot_diff_drive_controller/type: diff_drive_contro...
+ * /robot_diff_drive_controller/wheel_radius: 0.06
+ * /robot_diff_drive_controller/wheel_separation: 0.45
+ * /rosdistro: melodic
+ * /rosversion: 1.14.13
+ * /use_gui: True
+ * /use_sim_time: True
+
+NODES
+  /
+    gazebo (gazebo_ros/gzserver)
+    gazebo_gui (gazebo_ros/gzclient)
+    joint_state_publisher (joint_state_publisher/joint_state_publisher)
+    robot_controller_spawner (controller_manager/spawner)
+    robot_state_publisher (robot_state_publisher/robot_state_publisher)
+    rviz (rviz/rviz)
+    urdf_spawner (gazebo_ros/spawn_model)
+
+ROS_MASTER_URI=http://localhost:11311
+
+process[joint_state_publisher-1]: started with pid [16465]
+process[robot_state_publisher-2]: started with pid [16466]
+process[rviz-3]: started with pid [16467]
+process[robot_controller_spawner-4]: started with pid [16472]
+[ WARN] [1728723935.418514221]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+process[gazebo-5]: started with pid [16474]
+process[gazebo_gui-6]: started with pid [16478]
+process[urdf_spawner-7]: started with pid [16484]
+[ INFO] [1728723935.757622210]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1728723935.758667159]: waitForService: Service [/gazebo/set_physics_properties] has not been advertised, waiting...
+[INFO] [1728723935.787689, 0.000000]: Controller Spawner: Waiting for service controller_manager/load_controller
+[ INFO] [1728723935.805478173]: Finished loading Gazebo ROS API Plugin.
+[ INFO] [1728723935.806913412]: waitForService: Service [/gazebo_gui/set_physics_properties] has not been advertised, waiting...
+[ INFO] [1728723936.113025623]: waitForService: Service [/gazebo/set_physics_properties] is now available.
+[ INFO] [1728723936.140089690, 0.016000000]: Physics dynamic reconfigure ready.
+[Err] [REST.cc:205] Error in REST request
+
+libcurl: (5) Could not resolve proxy: http
+[INFO] [1728723936.278968, 0.000000]: Loading model XML from ros parameter robot_description
+[INFO] [1728723936.283101, 0.000000]: Waiting for service /gazebo/spawn_urdf_model
+[INFO] [1728723936.284807, 0.000000]: Calling service /gazebo/spawn_urdf_model
+[INFO] [1728723936.519861, 0.351000]: Spawn status: SpawnModel: Successfully spawned entity
+[INFO] [1728723936.520780, 0.351000]: Unpausing physics
+[ INFO] [1728723936.537511925, 0.351000000]: Loading gazebo_ros_control plugin
+[ INFO] [1728723936.537608587, 0.351000000]: Starting gazebo_ros_control plugin in namespace: /mobile_robot
+[ INFO] [1728723936.538083589, 0.351000000]: gazebo_ros_control plugin is waiting for model URDF in parameter [/robot_description] on the ROS param server.
+[ERROR] [1728723936.650931091, 0.351000000]: No p gain specified for pid.  Namespace: /mobile_robot/gazebo_ros_control/pid_gains/front_left_wheel_joint
+[ERROR] [1728723936.652043200, 0.351000000]: No p gain specified for pid.  Namespace: /mobile_robot/gazebo_ros_control/pid_gains/front_right_wheel_joint
+[ERROR] [1728723936.652651071, 0.351000000]: No p gain specified for pid.  Namespace: /mobile_robot/gazebo_ros_control/pid_gains/rear_left_wheel_joint
+[ERROR] [1728723936.653102239, 0.351000000]: No p gain specified for pid.  Namespace: /mobile_robot/gazebo_ros_control/pid_gains/rear_right_wheel_joint
+[ INFO] [1728723936.656848454, 0.351000000]: Loaded gazebo_ros_control.
+[urdf_spawner-7] process has finished cleanly
+log file: /home/ariano/.ros/log/671f42b0-85e7-11ef-b560-7085c25fbfb4/urdf_spawner-7*.log
+[WARN] [1728723965.835725, 26.322000]: Controller Spawner couldn't find the expected controller_manager ROS interface.
+[robot_controller_spawner-4] process has finished cleanly
+log file: /home/ariano/.ros/log/671f42b0-85e7-11ef-b560-7085c25fbfb4/robot_controller_spawner-4*.log
