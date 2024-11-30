@@ -1,35 +1,24 @@
 <?xml version="1.0"?>
 <launch>
-  <!-- Map server -->
+  <!-- Arguments -->
   <arg name="map_file" default="$(find ros_mobile_robot)/maps/map.yaml"/>
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
 
-  <!-- AMCL for localization-->
-  <node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <rosparam file="$(find ros_mobile_robot)/config/amcl_params.yaml" command="load" />
-  </node>
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
-    <!-- Move base -->
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    
-    <!-- Load common parameters -->
-    <rosparam file="$(find ros_mobile_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find ros_mobile_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-     
-      <!-- Load specific parameters -->
-    <rosparam file="$(find ros_mobile_robot)/config/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find ros_mobile_robot)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find ros_mobile_robot)/config/move_base_params.yaml" command="load" />
-    
-    <!-- Load DWA specific parameters -->
-    <rosparam file="$(find ros_mobile_robot)/config/dwa_local_planner_params.yaml" command="load" />
-    
-    <!--
-    <rosparam file="$(find ros_mobile_robot)/config/base_local_planner_params.yaml" command="load" />
-    -->
-    
-    <!-- Set planner -->
-    <param name="base_global_planner" value="navfn/NavfnROS"/>
-    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
-  </node>
+  <!-- AMCL -->
+  <include file="$(find ros_mobile_robot)/launch/amcl.launch"/>
+
+  <!-- move_base -->
+  <include file="$(find ros_mobile_robot)/launch/move_base.launch">
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find ros_mobile_robot)/rviz/ros_mobile_robot_navigation.rviz"/>
+  </group>
 </launch>
