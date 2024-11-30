@@ -1,0 +1,6 @@
+analyzers:
+  ros_control:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: 'ROS Control'
+    find_and_remove_prefix: 'mobile_base_controller'
+    num_items: 2
