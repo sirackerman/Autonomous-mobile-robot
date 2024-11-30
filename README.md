@@ -45,7 +45,7 @@ catkin init
 2. Clone the repository:
 ```bash
 cd ~/catkin_ws/src
-git clone https://github.com/YOUR_USERNAME/ros_mobile_robot.git
+git clone https://github.com/sirackerman/ros_mobile_robot.git
 ```
 
 3. Build the workspace:
