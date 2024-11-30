@@ -1,0 +1,49 @@
+# Overall filter parameters
+transform_tolerance: 1.0 
+min_particles: 500
+max_particles: 3000
+kld_err: 0.05
+kld_z: 0.99
+update_min_d: 0.1        # Translational movement required before updating (meters)
+update_min_a: 0.25        # Rotational movement required before updating (radians)
+resample_interval: 1     # Number of filter updates before resampling
+
+gui_publish_rate: 10.0   # Increase from -1.0
+save_pose_rate: 0.5      # Add this line
+
+# Initial pose related
+initial_pose_x: 0.0
+initial_pose_y: 0.0
+initial_pose_a: 0.0
+initial_cov_xx: 0.25
+initial_cov_yy: 0.25
+initial_cov_aa: 0.068538
+
+# Model parameters - motion
+odom_model_type: "diff"  # diff = differential drive
+odom_alpha1: 0.2        # Rotation noise from rotation
+odom_alpha2: 0.2        # Rotation noise from translation
+odom_alpha3: 0.2        # Translation noise from translation
+odom_alpha4: 0.2        # Translation noise from rotation
+odom_frame_id: "odom"
+base_frame_id: "base_link"
+global_frame_id: "map"
+
+# Model parameters - laser
+laser_z_hit: 0.5
+laser_z_short: 0.05
+laser_z_max: 0.05
+laser_z_rand: 0.5
+laser_sigma_hit: 0.2
+laser_lambda_short: 0.1
+laser_model_type: "likelihood_field"
+laser_likelihood_max_dist: 2.0
+
+# Navigation and recovery behavior
+recovery_alpha_slow: 0.001
+recovery_alpha_fast: 0.1
+gui_publish_rate: -1.0
+
+# For point clouds from RGBD camera
+do_beamskip: true
+tf_broadcast: true
