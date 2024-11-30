@@ -1,6 +1,6 @@
 # Autonomous mobile robot
 A ROS-based autonomous mobile robot platform with 4-wheel differential drive configuration, equipped with LDS-02 2D LIDAR and RealSense D435i RGB-D camera for autonomous navigation and mapping.
-Work in progress. To be updated. Designing a mobile robot capable of autnomous naviagtion using path planning algorithms and obstacle avoidance. Working in Ubuntu 18.08 using ROS Melodic.
+Work in progress. To be updated.
 
 ## Features
 - Autonomous Navigation
