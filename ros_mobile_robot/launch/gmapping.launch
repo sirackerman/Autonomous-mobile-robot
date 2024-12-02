@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!-- gmapping.launch -->
+<launch>
+  <!-- Arguments -->
+  <arg name="scan_topic" default="scan"/>
+  <arg name="lds_model" default="lds_02"/>
+
+  <!-- SLAM Gmapping Node -->
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <rosparam>
+      <!-- Frame Settings -->
+      odom_frame: odom
+      base_frame: base_link
+      map_frame: map
+
+      <!-- Map Update Settings -->
+      map_update_interval: 1.0  # Balanced for LDS-02 5Hz update rate
+      transform_publish_period: 0.05
+      
+      <!-- Laser Scanner Settings -->
+      maxUrange: 3.5  # LDS-02 maximum range
+      maxRange: 3.7   # Slightly higher than maxUrange
+      minimumScore: 50
+      
+      <!-- Particle Filter Settings -->
+      particles: 100  
+      
+      <!-- Update Frequencies -->
+      linearUpdate: 0.2      # Update after 0.2m of linear movement
+      angularUpdate: 0.2     # Update after 0.2rad of angular movement
+      temporalUpdate: 1.0    # Update after 1.0s if no motion
+      resampleThreshold: 0.5 # Resampling threshold
+      
+      <!-- Map Size and Resolution -->
+      xmin: -20.0
+      ymin: -20.0
+      xmax: 20.0
+      ymax: 20.0
+      delta: 0.05  # Map resolution (meters/pixel)
+      
+      <!-- Scan Matching Parameters -->
+      sigma: 0.05
+      kernelSize: 1
+      lstep: 0.05
+      astep: 0.05
+      iterations: 5
+      lsigma: 0.075
+      ogain: 3.0
+      lskip: 0
+      
+      <!-- Motion Model Parameters -->
+      srr: 0.1  # Odometry error in rotation from rotation
+      srt: 0.2  # Odometry error in rotation from translation
+      str: 0.1  # Odometry error in translation from rotation
+      stt: 0.2  # Odometry error in translation from translation
+      
+      <!-- Advanced Parameters -->
+      llsamplerange: 0.01
+      llsamplestep: 0.01
+      lasamplerange: 0.005
+      lasamplestep: 0.005
+    </rosparam>
+    
+    <remap from="scan" to="$(arg scan_topic)"/>
+  </node>
+</launch>
+

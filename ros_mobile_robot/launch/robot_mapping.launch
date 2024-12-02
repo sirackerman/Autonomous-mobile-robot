@@ -1,0 +1,32 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="scan_topic" default="scan"/>
+  <arg name="model" default="$(env MOBILE_ROBOT_MODEL)" doc="model type [custom_robot]"/>
+  <arg name="open_rviz" default="true"/>
+
+
+ <!-- Launch the robot -->
+  <include file="$(find ros_mobile_robot)/launch/drive_robot.launch" />
+
+<!-- Spawn the robot in Gazebo -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 0.1 -unpause -urdf -model robot -param robot_description" 
+        respawn="false" output="screen" />
+
+  <!-- Start SLAM Gmapping -->
+  <include file="$(find ros_mobile_robot)/launch/gmapping.launch">
+    <arg name="scan_topic" value="$(arg scan_topic)" />
+  </include>
+
+  <!-- Run move_base for navigation -->
+  <include file="$(find ros_mobile_robot)/launch/move_base.launch">
+    <arg name="cmd_vel_topic" value="/cmd_vel" />
+    <arg name="odom_topic" value="odom" />
+  </include>
+
+  <!-- Run rviz -->
+  <group if="$(arg open_rviz)">
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find ros_mobile_robot)/rviz/ros_mobile_robot_navigation.rviz"/>
+  </group>
+</launch>
