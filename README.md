@@ -55,49 +55,56 @@ catkin build
 source devel/setup.bash
 ```
 
-## Usage (to be optimized)
+## Usage
 
-### Launch the Robot in Simulation
+### Environment Setup
 ```bash
-roslaunch ros_mobile_robot mobile_robot_stage_4.launch
+# Set the robot model
+export MOBILE_ROBOT_MODEL=custom_robot
 ```
-This launches:
-- Gazebo simulation
-- Robot controllers
-- Navigation stack
-- RViz visualization
+### Mapping with Gmapping
+To create a map of a new environment:
 
-### Manual Control with PS5 Controller
-Ensure your PS5 controller is connected, then:
+1. Launch the desired Gazebo world:
 ```bash
-roslaunch ros_mobile_robot ps5_teleop.launch
+roslaunch ros_mobile_robot mobile_robot_stage_1.launch  # For Stage 1
+# Or other available worlds:
+# mobile_robot_stage_2.launch
+# mobile_robot_stage_3.launch
+# mobile_robot_stage_4.launch
+# house.launch
+```
+2. Launch the mapping system:
+```bash
+roslaunch ros_mobile_robot robot_mapping.launch
+```
+
+3. Control the robot to explore the environment:
+
+With the keyboard:
+```bash
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+```
+With the PS5 controller:
+
+Install this [ROS_package](https://github.com/sirackerman/PS5-Controller-ROS-package), ensure your PS5 controller is connected, then run:
+```bash
+roslaunch ps5_teleop ps5_teleop.launch
 ```
 
 ### Autonomous Navigation
-1. In RViz:
-   - Use "2D Pose Estimate" to set initial robot position
-   - Use "2D Nav Goal" to set navigation target
-2. The robot will autonomously plan and execute a path to the goal
+To navigate in a known environment using a previously created map:
 
-## System Architecture
+1. Launch navigation with the desired world and map:
+```bash
+roslaunch ros_mobile_robot navigation.launch map_file:=/path/to/map.yaml world_file:=/path/to/world.world
+```
 
-### Hardware Configuration
-- 4-wheel differential drive base
-- LDS-02 2D LIDAR Scanner
-- RealSense D435i RGB-D Camera with IMU
-- PS5 Controller for manual operation
+Example:
+```bash
+roslaunch ros_mobile_robot navigation.launch map_file:=/home/user/catkin_ws/src/ros_mobile_robot/maps/map.yaml world_file:=/home/user/catkin_ws/src/ros_mobile_robot/worlds/stage_4.world
+```
 
-## Key Configuration Files
-- `config/control.yaml`: Controller parameters
-- `config/navigation.yaml`: Navigation stack parameters
-- `config/localization.yaml`: EKF parameters
-- `config/twist_mux.yaml`: Command multiplexing configuration
+2. Set initial robot pose in RViz using "2D Pose Estimate"
 
-## To be Improved
-- Sharp turns during obstacle avoidance need improvement
-- Rotation movements could be more responsive
-- Collision prevention needs enhancement
-
-## Acknowledgments
-- Built using ROS Melodic
-- Uses components from the ROS Navigation Stack
+3. Set navigation goals using "2D Nav Goal" in RViz
