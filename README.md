@@ -114,3 +114,7 @@ roslaunch ros_mobile_robot navigation.launch map_file:=/home/user/catkin_ws/src/
 2. Set initial robot pose in RViz using "2D Pose Estimate"
 
 3. Set navigation goals using "2D Nav Goal" in RViz
+
+
+### Acknowlegments
+-Inspired by various open-source robotics projects
