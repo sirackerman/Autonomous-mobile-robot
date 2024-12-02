@@ -1,45 +1,9 @@
 <?xml version="1.0"?>
 <launch>
-  <!-- Arguments -->
-  <arg name="model" default="$(find ros_mobile_robot)/urdf/mobile_robot.urdf.xacro"/>
-  <arg name="gui" default="true" />
-  <arg name="enable_rviz" default="false" />
-  <arg name="rviz_config" default="$(find ros_mobile_robot)/rviz/navigation.rviz" />
+  <!-- Robot description -->
+  <param name="robot_description" 
+         command="$(find xacro)/xacro $(find ros_mobile_robot)/urdf/mobile_robot.urdf.xacro" />
 
-  <!-- Parameters -->
-  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
-  <param name="use_gui" value="$(arg gui)"/>
-
-  <!--Ros param Load controller configurations -->
-  <rosparam command="load" file="$(find ros_mobile_robot)/config/diffdrive.yaml" ns="robot_diff_drive_controller" />
- 
-  <!--Load Gazebo control parameters -->
-  <rosparam command="load" file="$(find ros_mobile_robot)/config/gazebo_ros_control_params.yaml"/>
-  <rosparam command="load" file="$(find ros_mobile_robot)/config/joints.yaml" ns="mobile_robot_joint_state_controller"/>
-
-  <!-- Start the robot state publisher -->
-  <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher" />
-  
-  <!-- Start RViz if enabled-->
-  <group if="$(arg enable_rviz)">
-      <node name="rviz" pkg="rviz" type="robot_rviz" args="-d $(arg rviz_config)" required="true" />
-  </group>
-
-  <!-- Start the controller spawner -->
-  <node name="robot_controller_spawner" pkg="controller_manager" type="spawner" 
-        args="mobile_robot_joint_state_controller robot_diff_drive_controller  --shutdown-timeout 3"/>
- 
-
-  <!-- Launch an empty world in Gazebo -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="true"/>
-    <arg name="recording" value="false"/>
-    <arg name="debug" value="false"/>
-  </include>
-  
-  <!-- Spawn the robot in Gazebo -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-        args="-z 0.1 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
+  <!-- Launch control system -->
+  <include file="$(find ros_mobile_robot)/launch/control.launch"/>
 </launch>
