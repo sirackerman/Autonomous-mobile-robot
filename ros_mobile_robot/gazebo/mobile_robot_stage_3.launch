@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Launch Gazebo with specified world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find ros_mobile_robot)/worlds/stage_3.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+  </include>
+</launch>

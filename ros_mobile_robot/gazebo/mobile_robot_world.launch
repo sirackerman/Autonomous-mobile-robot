@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="$(optenv MOBILE_ROBOT_MODEL custom_robot)" doc="model type [custom_robot]"/>
+  <arg name="world_file" default="$(find ros_mobile_robot)/worlds/$(arg model)_world.world"/>
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+
+  <!-- Launch Gazebo World -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_file)"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- Load robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find ros_mobile_robot)/urdf/mobile_robot.urdf.xacro" />
+
+  <!-- Spawn the robot -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" 
+        args="-urdf -param robot_description -model $(arg model)"
+        output="screen" />
+</launch>
