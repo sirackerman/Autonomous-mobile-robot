@@ -1,1 +1,7 @@
-
+<?xml version="1.0"?>
+<launch>
+  <arg name="model" default="$(optenv MOBILE_ROBOT_MODEL custom_robot)"/>
+  <include file="$(find ros_mobile_robot)/gazebo/mobile_robot_world.launch">
+    <arg name="world_file" value="$(find ros_mobile_robot)/worlds/empty.world"/>
+  </include>
+</launch>
