@@ -3,7 +3,7 @@
   <!-- Arguments -->
   <arg name="model" default="$(find ros_mobile_robot)/urdf/mobile_robot.urdf.xacro"/>
   <arg name="gui" default="true"/>
-  <arg name="rviz_config" default="$(find ros_mobile_robot)/rviz/robot_description.rviz"/>
+  <arg name="rviz_config" default="$(find ros_mobile_robot)/rviz/ros_mobile_robot_navigation.rviz"/>
   <arg name="gazebo_gui" default="true"/>
 
   <!-- Load robot description to parameter server -->
