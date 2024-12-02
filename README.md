@@ -92,6 +92,12 @@ Install this [ROS_package](https://github.com/sirackerman/PS5-Controller-ROS-pac
 roslaunch ps5_teleop ps5_teleop.launch
 ```
 
+4. After mapping the environment, save the map in your desired location:
+```bash
+# Save the map to your maps directory
+rosrun map_server map_saver -f ~/catkin_ws/src/ros_mobile_robot/maps/my_map
+```
+
 ### Autonomous Navigation
 To navigate in a known environment using a previously created map:
 
