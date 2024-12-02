@@ -63,7 +63,7 @@ source devel/setup.bash
 export MOBILE_ROBOT_MODEL=custom_robot
 ```
 ### Mapping with Gmapping
-To create a map of a new environment:
+To create a map of a new environment (uses turtlebot3 worlds):
 
 1. Launch the desired Gazebo world:
 ```bash
@@ -114,7 +114,3 @@ roslaunch ros_mobile_robot navigation.launch map_file:=/home/user/catkin_ws/src/
 2. Set initial robot pose in RViz using "2D Pose Estimate"
 
 3. Set navigation goals using "2D Nav Goal" in RViz
-
-
-### Acknowlegments
--Inspired by various open-source robotics projects
