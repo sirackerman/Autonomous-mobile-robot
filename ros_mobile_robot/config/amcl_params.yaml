@@ -8,8 +8,8 @@ update_min_d: 0.1        # Translational movement required before updating (mete
 update_min_a: 0.25        # Rotational movement required before updating (radians)
 resample_interval: 1     # Number of filter updates before resampling
 
-gui_publish_rate: 10.0   # Increase from -1.0
-save_pose_rate: 0.5      # Add this line
+gui_publish_rate: 10.0   
+save_pose_rate: 0.5     
 
 # Initial pose related
 initial_pose_x: 0.0
