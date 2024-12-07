@@ -2,37 +2,24 @@
 <launch>
   <!-- Arguments -->
   <arg name="model" default="$(find ros_mobile_robot)/urdf/mobile_robot.urdf.xacro"/>
-  <arg name="gui" default="true"/>
-  <arg name="rviz_config" default="$(find ros_mobile_robot)/rviz/ros_mobile_robot_navigation.rviz"/>
-  <arg name="gazebo_gui" default="true"/>
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="z" default="0"/>
+  <arg name="R" default="0"/>
+  <arg name="P" default="0"/>
+  <arg name="Y" default="0"/>
 
   <!-- Load robot description to parameter server -->
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
   
-  <!-- Robot state publisher -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-  
-  <!-- Joint state publisher -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="use_gui" value="$(arg gui)"/>
-  </node>
 
-  <!-- Launch Gazebo -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="$(arg gazebo_gui)"/>
-    <arg name="headless" value="false"/>
-    <arg name="debug" value="false"/>
-  </include>
-
-  <!-- Spawn robot in Gazebo -->
+  <!-- Spawn robot in Gazebo at specified position -->
   <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" 
-        args="-urdf -param robot_description -model mobile_robot" output="screen"/>
-
-  <!-- Launch RViz -->
-  <group if="$(arg gui)">
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/>
-  </group>
+        args="-urdf -param robot_description -model mobile_robot 
+              -x $(arg x) -y $(arg y) -z $(arg z)
+              -R $(arg R) -P $(arg P) -Y $(arg Y)"
+        output="screen"
+        respawn="false"
+        required="false"/>
 
 </launch>
