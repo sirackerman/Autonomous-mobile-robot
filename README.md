@@ -1,23 +1,17 @@
 # Autonomous mobile robot
-A ROS-based autonomous mobile robot platform with 4-wheel differential drive configuration, equipped with LDS-02 2D LIDAR and RealSense D435i RGB-D camera for autonomous navigation and mapping.
+A ROS-based autonomous mobile robot platform with 4-wheel differential drive configuration, equipped with LDS-02 2D LIDAR and RealSense D435i RGB-D camera for mapping, autonomous exploration+mapping and autonomous navigation.
 
 Work in progress. To be updated.
 
 ## Features
-- Autonomous Navigation
-- SLAM Capability
-- Obstacle Avoidance
-- PS5 Controller Teleoperation
-- Sensor Integration (LDS-02 LIDAR, RealSense D435i)
-- EKF-based Localization
+-Autonomous Navigation and obstacle avoidance
+-Mapping
+-Autonomous exploration and mapping
 
 ## Prerequisites
 
 ### ROS and System Dependencies
-- Ubuntu 18.04
-- ROS Melodic
-- Gazebo 9
-- Python 2.7
+- Ubuntu 18.04 , ROS melodic or newer
 
 ### Required ROS Packages
 ```bash
@@ -114,3 +108,22 @@ roslaunch ros_mobile_robot navigation.launch map_file:=/home/user/catkin_ws/src/
 2. Set initial robot pose in RViz using "2D Pose Estimate"
 
 3. Set navigation goals using "2D Nav Goal" in RViz
+
+### Autonomous Exploration
+
+The robot supports autonomous exploration using RRT (Rapidly-exploring Random Tree) exploration strategy. This functionality combines SLAM for mapping with frontier-based exploration.
+
+1. Robot in House Environment (launch file can be edited to spawn the robot in a different world)
+```bash
+roslaunch ros_mobile_robot robot_exploration.launch 
+```
+
+2. RRT Exploration
+```bash
+roslaunch ros_mobile_robot robot_rrt_exploration.launch
+```
+This initializes:
+- SLAM (Gmapping)
+- Global RRT detector
+- Local RRT detector
+- Frontier filter and assigner
