@@ -68,7 +68,10 @@
  <!-- Command multiplexing -->
   <depend>twist_mux</depend>
 
-
+  <!-- Python dependencies -->
+  <exec_depend>python-numpy</exec_depend>
+  <exec_depend>python-sklearn</exec_depend>
+  <exec_depend>python-scipy</exec_depend>
 
   <export>
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
