@@ -1,0 +1,41 @@
+# RRT Exploration Parameters
+
+# Global RRT Parameters
+global_rrt:
+  eta: 15.0  # Step size for global exploration
+  map_topic: "/map"
+  min_frontier_size: 0.3  # Minimum size of frontier (meters)
+  robot_frame: "base_link"
+  update_frequency: 5.0  # Hz
+
+# Local RRT Parameters
+local_rrt:
+  eta: 1.0  # Step size for local exploration
+  map_topic: "/map"
+  robot_frame: "base_link"
+  sensor_range: 3.5  # Matches LDS-02 max range
+  update_frequency: 10.0  # Hz
+
+# Frontier Filter Parameters
+frontier_filter:
+  info_radius: 1.0  # Information gain calculation radius
+  costmap_clearing_threshold: 70
+  min_frontier_distance: 0.3  # Minimum distance between frontiers
+  clustering_threshold: 0.3  # Distance threshold for clustering frontiers
+
+# Frontier Assignment Parameters
+frontier_assigner:
+  info_radius: 1.0
+  info_multiplier: 3.0  # Weight for information gain
+  hysteresis_radius: 3.0  # Radius for hysteresis behavior
+  hysteresis_gain: 2.0  # Gain for favoring current exploration direction
+  delay_after_assignment: 0.5  # Delay between assignments (seconds)
+  update_frequency: 100.0  # Hz
+
+# Robot-specific Parameters
+robot:
+  min_turning_radius: 0.1
+  max_linear_speed: 0.5
+  max_angular_speed: 1.0
+  goal_tolerance: 0.2
+  yaw_tolerance: 0.1
