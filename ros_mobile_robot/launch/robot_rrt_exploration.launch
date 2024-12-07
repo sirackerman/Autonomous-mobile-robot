@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="global_rrt_eta" default="15.0"/>
+  <arg name="local_rrt_eta" default="1.0"/>
+  <arg name="scan_topic" default="scan"/>
+
+  <!-- SLAM Gmapping Node -->
+  <include file="$(find ros_mobile_robot)/launch/gmapping.launch">
+    <arg name="scan_topic" value="$(arg scan_topic)"/>
+  </include>
+
+  <!-- Wait for map to be available -->
+  <node pkg="topic_tools" type="relay" name="map_delay" 
+        args="/map /map_relay" launch-prefix="bash -c 'sleep 5; $0 $@'" />
+
+  <!-- Global RRT detector -->
+  <node pkg="ros_mobile_robot" type="global_rrt.py" name="global_detector" output="screen"
+        launch-prefix="bash -c 'sleep 6; $0 $@'">
+    <param name="eta" value="$(arg global_rrt_eta)"/>
+    <param name="map_topic" value="/map"/>
+  </node>
+
+  <!-- Local RRT detector -->
+  <node pkg="ros_mobile_robot" type="local_rrt.py" name="local_detector" output="screen"
+        launch-prefix="bash -c 'sleep 6; $0 $@'">
+    <param name="eta" value="$(arg local_rrt_eta)"/>
+    <param name="map_topic" value="/map"/>
+    <param name="robot_frame" value="base_link"/>
+  </node>
+
+  <!-- Frontier Filter -->
+  <node pkg="ros_mobile_robot" type="filter.py" name="filter" output="screen"
+        launch-prefix="bash -c 'sleep 7; $0 $@'">
+    <param name="map_topic" value="/map"/>
+    <param name="info_radius" value="1"/> 
+    <param name="costmap_clearing_threshold" value="70"/>
+    <param name="goals_topic" value="/detected_points"/>
+    <param name="namespace" value=""/>
+    <param name="n_robots" value="1"/>
+    <param name="rate" value="100"/>
+  </node>
+
+  <!-- Frontier Assigner -->
+  <node pkg="ros_mobile_robot" type="assigner.py" name="assigner" output="screen"
+        launch-prefix="bash -c 'sleep 8; $0 $@'">
+    <param name="map_topic" value="/map"/>
+    <param name="global_frame" value="map"/>
+    <param name="info_radius" value="1"/>
+    <param name="info_multiplier" value="3.0"/>
+    <param name="hysteresis_radius" value="3.0"/>
+    <param name="hysteresis_gain" value="2.0"/>
+    <param name="frontiers_topic" value="/filtered_points"/>
+    <param name="n_robots" value="1"/>
+    <param name="namespace" value=""/>
+    <param name="delay_after_assignement" value="0.5"/>
+    <param name="rate" value="100"/>
+  </node>
+
+</launch>

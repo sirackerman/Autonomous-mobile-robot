@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch the waypoint navigation state machine -->
+    <node pkg="ros_mobile_robot" type="waypoint_navigation_sm.py" name="waypoint_navigation_sm" output="screen">
+    </node>
+
+    <!-- Launch smach_viewer for visualization -->
+    <node pkg="smach_viewer" type="smach_viewer.py" name="smach_viewer" output="screen">
+    </node>
+</launch>
