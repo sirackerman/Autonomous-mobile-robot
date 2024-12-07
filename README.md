@@ -127,3 +127,7 @@ This initializes:
 - Global RRT detector
 - Local RRT detector
 - Frontier filter and assigner
+
+#### Known Limitations and Future Work
+   - Current implementation might need parameter tuning for better obstacle avoidance
+   - Exploration strategy can be optimized for better coverage
