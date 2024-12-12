@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- ORB_SLAM3 Node -->
+    <node name="orb_slam3_rgbd" pkg="orb_slam3_ros_wrapper" type="orb_slam3_ros_wrapper_rgbd" output="screen">
+        <!-- Remap topics from D435i camera -->
+        <remap from="/camera/rgb/image_raw" to="/d435i/color/image_raw"/>
+        <remap from="/camera/depth_registered/image_raw" to="/d435i/depth/image_rect_raw"/>
+        <remap from="/imu" to="/d435i/imu"/>
+        
+        <!-- Parameters for ORB_SLAM3 -->
+        <param name="voc_file" type="string" value="$(find orb_slam3_ros_wrapper)/config/ORBvoc.txt"/>
+        <param name="settings_file" type="string" value="$(find orb_slam3_ros_wrapper)/config/rgbd_RealSense_D435i.yaml"/>
+        
+        <!-- Parameters for ROS -->
+        <param name="world_frame_id" type="string" value="map"/>
+        <param name="cam_frame_id" type="string" value="d435i_link"/>
+        <param name="enable_pangolin" type="bool" value="true"/>
+        <param name="transform_tolerance" value="0.5"/>
+    </node>
+
+   <!-- Static transform publisher to connect ORB-SLAM roslaunch gazebo_ros empty_world.launch world_name:=/home/ariano/catkin_ws/src/ros_mobile_robot/worlds/gazebo_models_worlds_collection/worlds/workshop_example.world
+3's map to robot's odom -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom_broadcaster" args="0 0 0 0 0 0 map odom">
+        <param name="transform_tolerance" value="0.5"/>
+    </node>
+
+
+    <!-- Trajectory Visualization -->
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="trajectory_server_orb_slam3" output="screen" ns="orb_slam3_ros">
+        <param name="/target_frame_name" value="/map"/>
+        <param name="/source_frame_name" value="/d435i_link"/>
+        <param name="/trajectory_update_rate" value="20.0"/>
+        <param name="/trajectory_publish_rate" value="20.0"/>
+    </node>
+
+</launch>
