@@ -4,13 +4,17 @@
   <arg name="model" default="$(env MOBILE_ROBOT_MODEL)" doc="model type [custom_robot]"/>
   <arg name="open_rviz" default="true"/>
 
+<!-- Spawn position arguments -->
+    <arg name="x_pos" default="0.0"/>
+    <arg name="y_pos" default="0.0"/>
+    <arg name="z_pos" default="0.1"/>
 
- <!-- Launch the robot -->
+ <!-- Launch manual control -->
   <include file="$(find ros_mobile_robot)/launch/drive_robot.launch" />
 
 <!-- Spawn the robot in Gazebo -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-        args="-z 0.1 -unpause -urdf -model robot -param robot_description" 
+        args="-x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -unpause -urdf -model robot -param robot_description"
         respawn="false" output="screen" />
 
   <!-- Start SLAM Gmapping -->
