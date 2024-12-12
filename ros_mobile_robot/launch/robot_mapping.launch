@@ -5,9 +5,11 @@
   <arg name="open_rviz" default="true"/>
 
 <!-- Spawn position arguments -->
+<!-- 
     <arg name="x_pos" default="0.0"/>
     <arg name="y_pos" default="0.0"/>
     <arg name="z_pos" default="0.1"/>
+-->
 
  <!-- Launch manual control -->
   <include file="$(find ros_mobile_robot)/launch/drive_robot.launch" />
