@@ -78,6 +78,11 @@ roslaunch ros_mobile_robot mobile_robot_stage_1.launch  # For Stage 1
 ```bash
 roslaunch ros_mobile_robot robot_mapping.launch
 ```
+For spawing the robot in a specific point in a world (Check robot_mapping.launch), run:
+```bash
+roslaunch ros_mobile_robot robot_mapping.launch x_pos:=1.0 y_pos:=1.0
+```
+
 
 3. Control the robot to explore the environment:
 
@@ -89,7 +94,7 @@ With the PS5 controller:
 
 Install this [ROS_package](https://github.com/sirackerman/PS5-Controller-ROS-package), ensure your PS5 controller is connected, then run:
 ```bash
-roslaunch ps5_teleop ps5_teleop.launch
+roslaunch ps5_teleop ps5_teleop.launch 
 ```
 
 4. After mapping the environment, save the map in your desired location:
